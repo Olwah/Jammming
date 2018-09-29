@@ -10,7 +10,7 @@ export class Track extends React.Component {
   }
 
   renderAction(isRemoval) {
-    if (isRemoval === true) {
+    if (isRemoval === 'true') {
     return <a className='Track-action' onClick={this.removeTrack} >-</a>;
     } else {
       return <a className='Track-action' onClick={this.addTrack} >+</a>;
@@ -32,7 +32,7 @@ export class Track extends React.Component {
           <h3>{this.props.track.name}</h3>
           <p>{this.props.track.artist} | {this.props.track.album}</p>
         </div>
-        {this.renderAction()}
+        {this.renderAction(this.props.isRemoval)}
       </div>
     )}
   };

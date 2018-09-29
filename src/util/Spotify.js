@@ -48,36 +48,37 @@ export const Spotify = {
     });
   },
 
-  savePlaylist(playlistName, trackURIs) {
-    if(!playlistName || !trackURIs || trackURIs.length === 0) return;
+  savePlaylist(name, trackURIs) {
+    if(!name || !trackURIs || trackURIs.length === 0) return;
     const searchURL = searchCore + 'me';
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
     };
     let userID;
     let playlistID;
     fetch(searchURL, {
-      header: headers
+      headers: headers
     }).then(response => response.json())
       .then(jsonResponse => userID = jsonResponse.id)
       .then(() => {
-        const createPlaylist = `${searchCore}/users/${userID}/playlists`;
+        const createPlaylist = `${searchCore}users/${userID}/playlists`;
         fetch(createPlaylist, {
           method: 'POST',
           headers: headers,
           body: JSON.stringify(
-            { playlistName : playlistName }
+            { name : name }
           )
         })
         .then(response => response.json())
         .then(jsonResponse => playlistID = jsonResponse.id)
         .then(() => {
-          const addPlaylistTracks = `${searchCore}users/${userID}/playlists/${playlistID}/tracks`;
+          const addPlaylistTracks = `${searchCore}/playlists/${playlistID}/tracks`;
           fetch(addPlaylistTracks, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({
-              uris: trackURIs
+              'uris': trackURIs
             })
           });
         })
