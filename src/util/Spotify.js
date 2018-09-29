@@ -73,7 +73,7 @@ export const Spotify = {
         .then(response => response.json())
         .then(jsonResponse => playlistID = jsonResponse.id)
         .then(() => {
-          const addPlaylistTracks = `${searchCore}/playlists/${playlistID}/tracks`;
+          const addPlaylistTracks = `${searchCore}playlists/${playlistID}/tracks`;
           fetch(addPlaylistTracks, {
             method: 'POST',
             headers: headers,
